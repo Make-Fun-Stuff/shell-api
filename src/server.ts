@@ -2,8 +2,6 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import { execFile } from 'child_process'
 
-const ip = require('ip')
-
 export const start = (port: number, cmdFile: string) => {
   const app = express()
 
@@ -36,8 +34,7 @@ export const start = (port: number, cmdFile: string) => {
 
   app['post'](`/restart`, restart)
 
-  const ipAddress = ip.address()
-  app.listen(port, ipAddress, () => {
-    console.log(`Kenku Killer API started: http://${ipAddress}:${port}`)
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Kenku Killer API started on port ${port}`)
   })
 }
