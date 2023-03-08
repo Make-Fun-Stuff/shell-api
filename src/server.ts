@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import { execFileSync } from 'child_process'
+import { execFile } from 'child_process'
 
 const ip = require('ip')
 
@@ -26,7 +26,7 @@ export const start = (port: number, cmdFile: string) => {
     response.setHeader('Content-Type', 'application/json')
     try {
       console.log(`Running file: "${cmdFile}"`)
-      execFileSync(cmdFile)
+      execFile(cmdFile)
       response.status(200).send({})
     } catch (error) {
       console.error(error)
