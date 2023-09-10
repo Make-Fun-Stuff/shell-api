@@ -1,0 +1,1 @@
+bash casting/KILL.sh
