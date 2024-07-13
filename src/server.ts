@@ -43,8 +43,20 @@ export const start = (port: number, commandString: string) => {
       response.setHeader('Content-Type', 'application/json')
       try {
         console.log(`Running file: "${command.filename}"`)
-        execFile(command.filename)
-        response.status(200).send({})
+        const process = execFile(command.filename)
+        const output: string[] = []
+        process.stdout?.on('data', function (data) {
+          const str = `${data}`
+          if (str.trim().length) {
+            output.push(str.trim())
+          }
+        })
+        process.on('exit', function () {
+          response.status(200).send({ output: output.join(',') })
+        })
+        process.on('error', function () {
+          response.status(500).send({})
+        })
       } catch (error) {
         console.error(error)
         response.status(500).send({ error })
