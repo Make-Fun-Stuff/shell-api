@@ -34,7 +34,7 @@ export const start = (port: number, commandString: string) => {
 
   app.get('/', (_, response) => {
     response.setHeader('Content-Type', 'application/json')
-    response.send(200).send(JSON.stringify({}))
+    response.send({})
   })
 
   const generateHandler = (command: Command): ((req: Request, resp: Response) => Promise<void>) => {
