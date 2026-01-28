@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+amixer -c 1 -M -D pulse get Master | grep -m 1 -o -E [[:digit:]]+% | tr -d "%"
+
